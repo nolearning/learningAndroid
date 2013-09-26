@@ -1,0 +1,28 @@
+"Package": {
+	"name": "测试练习",
+	"id": "000000"
+	"publisher": "mainbo",
+	"version": "1.0",
+	"grade": 7,
+	"subject": "math",
+	"fasciculeOrder": 1,
+	"fasciculeName": "上册",
+	"childNodes":[{
+		"name": "第一章",
+		"id": "00001",
+		"childNodes": [{
+		}]
+	},{
+		"name": "第二章",
+		"id": "00002",
+		"childNodes": [{
+			
+		}]
+	}, {
+		"name": "第三章",
+		"id": "00003",
+		"childNodes":[{
+		
+		}]
+	}]
+}
