@@ -56,8 +56,18 @@ public class TestMain {
 		public void readJSONByDataBinding() {
 			try {
 				Package p1 = mapper.readValue(jsonFile, Package.class);
+				mapper.createObjectNode();
 				System.out.println(p1.childNodes[1].childNodes[0].name);
 			} catch(Exception e) {
+				System.err.println(e);
+			}
+		}
+		
+		public void readJSONbyTreeModel() {
+			try {
+				JsonNode rootNode = mapper.readValue(jsonFile, JsonNode.class);
+				System.out.println(rootNode.get("childNodes").asText());
+			} catch (Exception e) {
 				System.err.println(e);
 			}
 		}
@@ -67,7 +77,8 @@ public class TestMain {
 		TestMain tm = new TestMain();
 		
 		TestJackson tj = tm.new TestJackson("package.json");
-		tj.readJSONByDataBinding();
+		///tj.readJSONByDataBinding();
+		tj.readJSONbyTreeModel();
 	}
 
 }
