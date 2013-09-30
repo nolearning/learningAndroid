@@ -61,5 +61,7 @@ public class TestTypeRef {
 		System.out.println(intArr.getClass().getGenericSuperclass());
 		getType(new TypeRef<ArrayList<Integer>>(){});
 		testGernericList();
+		class a extends ArrayList<String> {};
+		System.out.println(a.class.getGenericSuperclass());
 	}
 }

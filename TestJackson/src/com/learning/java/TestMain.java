@@ -126,20 +126,33 @@ public class TestMain {
 			public String fasciculeName;
 		}
 		
+		class  IncmentalPrint {
+			private String text;
+			private int incs;
+			public IncmentalPrint(String text, int incs) {
+				this.text = text;
+				this.incs = incs;
+				for(int i = 0; i < incs; i++)
+					System.out.print(">>");
+				System.out.println(text);
+			}
+		}
+		
 		public void readJSONByStreamAPI() {
 			try {
 				JsonParser jp = new JsonFactory().createParser(jsonFile);
 				JsonToken token = null;
 				Stack stack = new Stack();
+				TopNode topNode = null;
 				Object curNode = null;
 				
 				for(;;) {
 					token = jp.nextToken();
-					if(token == null) return;
+					if(token == null) break;
 					if(token == JsonToken.START_OBJECT) {
 						System.out.println("Token start object");
 						if(stack.size() == 0) {
-							curNode = new TopNode();
+							curNode = topNode = new TopNode();
 						} else {
 							stack.push(curNode);
 							curNode = new Node();
@@ -155,10 +168,11 @@ public class TestMain {
 					} else if (token == JsonToken.START_ARRAY) {
 						((Node)curNode).childNodes = new ArrayList<Node>();
 						stack.push(curNode);
-						curNode 
+						curNode = ((Node)curNode).childNodes; 
 						System.out.println("Token start array");
 						continue;
 					} else if (token == JsonToken.END_ARRAY) {
+						curNode = stack.pop();
 						System.out.println("Token end array");
 						continue;
 					} else if(jp.getCurrentName().equals("childNodes")){
@@ -174,17 +188,80 @@ public class TestMain {
 						((Node)curNode).id = jp.getText();
 					}
 				}
-				
+				displayNodeByRecursive(topNode, 0);
+//				displayNodeWithoutRecusive(topNode);
 			} catch (Exception e) {
 				System.err.println(e);
 			}
 		}
+		
+		public void displayNodeByRecursive(Node node, int level) {
+			new IncmentalPrint(node.name, level);
+			if(node.childNodes == null) return;
+			for(Node child : node.childNodes) {
+				displayNodeByRecursive(child, level + 1);
+			}
+		}
+		
+		public void displayNodeWithoutRecusive(Node node) {
+			class PairNode{
+				public int index;
+				public Node node;
+				public PairNode(Node node, int index){
+					this.index = index;
+					this.node = node;
+				}
+			}
+			
+			ArrayList<PairNode> iStack = new ArrayList<PairNode>();
+			iStack.add(new PairNode(node,0));
+			System.out.println(iStack.get(0).node.name);
+			for(;;){
+				PairNode pairNode = iStack.get(iStack.size() - 1);
+				if(pairNode.node.childNodes != null && pairNode.index < pairNode.node.childNodes.size() ) {
+					iStack.add(new PairNode(pairNode.node.childNodes.get(pairNode.index), 0));
+					pairNode.index++;
+					new IncmentalPrint(iStack.get(iStack.size() - 1).node.name, iStack.size() - 1);
+//					if(pairNode.index == 2) {
+//						new IncmentalPrint(pairNode.node.name, iStack.size() - 1).print();
+//					}
+				} else {
+//					if(iStack.get(iStack.size() - 1).node.childNodes == null) {
+//						new IncmentalPrint(pairNode.node.name, iStack.size() - 1).print();
+//					}
+					iStack.remove(iStack.size() - 1);
+				}
+				if(iStack.size() == 0) break;
+
+//				if(node.childNodes != nuh`ll && index == 0) {
+//					iStack.add(new PairNode(index, node));
+//					nodes = node.childNodes;
+//					node = nodes.get(index);
+//				} else if(++index < nodes.size()) {
+//					node = iStack.get(iStack.size() - 1).node.childNodes.get(index);
+//				} else {
+//					do {
+//						iStack.remove(iStack.size() - 1);
+//						if(iStack.size() == 0) return;
+//						PairNode pn  = iStack.get(iStack.size() -1);
+//						index = ++pn.index;
+//						node = pn.node;
+//					} while(index >= node.childNodes.size());
+//					nodes = node.childNodes;
+//					node = nodes.get(index);
+//					index = 0;
+//				}
+			}
+		}	
+		
 	}
+	
 	
 	public static void main(String[] args) {
 		TestMain tm = new TestMain();
 		
 		TestJackson tj = tm.new TestJackson("package.json");
+
 		///tj.readJSONByDataBinding();
 		//tj.readJSONByTreeModel();
 		tj.readJSONByStreamAPI();
