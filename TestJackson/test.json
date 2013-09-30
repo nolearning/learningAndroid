@@ -1,0 +1,156 @@
+[
+	{
+		"name": "第一章",
+		"id": "00001",
+		"childNodes": [
+			{
+				"name": "1.第一节",
+				"id": "000011",
+				"childNodes": [
+					{
+						"name": "base",
+						"id": "000011_1"
+					}, {
+						"name": "middle",
+						"id": "000011_2"
+					}, {
+						"name": "high",
+						"id": "000011_3"
+					}
+				]
+			}, {
+				"name": "1.第二节",
+				"id": "000012",
+				"childNodes": [
+					{
+						"name": "base",
+						"id": "000012_1"
+					}, {
+						"name": "middle",
+						"id": "000012_2"
+					}, {
+						"name": "high",
+						"id": "000012_3"
+					}
+				]
+			}, {
+				"name": "1.第三节",
+				"id": "000013",
+				"childNodes": [
+					{
+						"name": "base",
+						"id": "000013_1"
+					}, {
+						"name": "middle",
+						"id": "000013_2"
+					}, {
+						"name": "high",
+						"id": "000013_3"
+					}
+				]
+			}
+		]
+	}, {
+		"name": "第二章",
+		"id": "00002",
+		"childNodes": [
+			{
+				"name": "第一节",
+				"id": "000021",
+				"childNodes": [
+					{
+						"name": "base",
+						"id": "000021_1"
+					}, {
+						"name": "middle",
+						"id": "000021_2"
+					}, {
+						"name": "high",
+						"id": "000021_3"
+					}
+				]
+			}, {
+				"name": "第二节",
+				"id": "000022",
+				"childNodes": [
+					{
+						"name": "base",
+						"id": "000022_1"
+					}, {
+						"name": "middle",
+						"id": "000022_2"
+					}, {
+						"name": "high",
+						"id": "000022_3"
+					}
+				]
+			}, {
+				"name": "第三节",
+				"id": "000023",
+				"childNodes": [
+					{
+						"name": "base",
+						"id": "000023_1"
+					}, {
+						"name": "middle",
+						"id": "000023_2"
+					}, {
+						"name": "high",
+						"id": "000023_3"
+					}
+				]
+			}
+		]
+	}, {
+		"name": "第三章",
+		"id": "00003",
+		"childNodes": [
+			{
+				"name": "第一节",
+				"id": "000031",
+				"childNodes": [
+					{
+						"name": "base",
+						"id": "000031_1"
+					}, {
+						"name": "middle",
+						"id": "000031_2"
+					}, {
+						"name": "high",
+						"id": "000031_3"
+					}
+				]
+			}, {
+				"name": "第二节",
+				"id": "000032",
+				"childNodes": [
+					{
+						"name": "base",
+						"id": "000032_1"
+					}, {
+						"name": "middle",
+						"id": "000032_2"
+					}, {
+						"name": "high",
+						"id": "000032_3"
+					}
+				]
+			}, {
+				"name": "第三节",
+				"id": "000033",
+				"childNodes": [
+					{
+						"name": "base",
+						"id": "000033_1"
+					}, {
+						"name": "middle",
+						"id": "000033_2"
+					}, {
+						"name": "high",
+						"id": "000033_3"
+					}
+				]
+			}
+		]
+	}
+]

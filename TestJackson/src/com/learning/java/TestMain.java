@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import com.fasterxml.jackson.*;
 import com.fasterxml.jackson.core.*;
 import com.fasterxml.jackson.databind.*;
+import com.fasterxml.jackson.databind.node.*;
 
 
 
@@ -62,21 +63,21 @@ public class TestMain {
 			try {
 				Package p1 = mapper.readValue(jsonFile, Package.class);
 				System.out.println(p1.childNodes[1].childNodes[0].name);
+				mapper.writeValue(new File("test1.json"), p1);
 			} catch(Exception e) {
 				System.err.println(e);
 			}
 		}
 		
-		public void readJSONByTreeModel() {
+		public JsonNode readJSONByTreeModel() {
+			JsonNode rootNode = null;
 			try {
 				//JsonNode rootNode = mapper.readValue(jsonFile, JsonNode.class);
-				JsonNode rootNode = mapper.readTree(jsonFile);
-				System.out.println(rootNode.size());
-				System.out.println(rootNode.get("childNodes").size());
-				System.out.println(rootNode.get("childNodes").get(0).get("name"));
+				rootNode = mapper.readTree(jsonFile);
 			} catch (Exception e) {
 				System.err.println(e);
 			}
+			return rootNode;
 		}
 		
 		private class Stack {
@@ -252,6 +253,38 @@ public class TestMain {
 //					index = 0;
 //				}
 			}
+		}
+		
+		
+
+		public void writeJsonForNodeByTree(JsonNode node) {
+			// TODO Auto-generated method stub
+			modifyChildNodes(node);
+			node = node.get("childNodes");
+			try {
+				mapper.writeValue(new File("test.json"), node);
+			} catch(Exception e) {
+				
+			}
+		}
+
+		private boolean modifyChildNodes(JsonNode jsonNode) {
+			// TODO Auto-generated method stub
+			JsonNode children = jsonNode.get("childNodes");
+			if(children == null) {
+				return false;
+			}
+			
+			for(int i = 0; i < children.size(); i++) {
+				JsonNode node = jsonNode.get(i);
+				
+				if(!modifyChildNodes(children.get(i))) {
+					((ObjectNode)jsonNode).remove("childNodes");
+					break;
+				}
+				
+			}
+			return true;
 		}	
 		
 	}
@@ -262,9 +295,11 @@ public class TestMain {
 		
 		TestJackson tj = tm.new TestJackson("package.json");
 
-		///tj.readJSONByDataBinding();
-		//tj.readJSONByTreeModel();
-		tj.readJSONByStreamAPI();
+		tj.readJSONByDataBinding();
+		//JsonNode node = tj.readJSONByTreeModel();
+		//tj.writeJsonForNodeByTree(node);
+		//tj.readJSONByStreamAPI();
+		//TreeVisitorTest.start();
 	}
 
 }
